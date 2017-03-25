@@ -12,13 +12,13 @@ namespace Concurs
         UserMenuPredictions _userMenuPredictions;
 
         WeekMenu _weekMenu;
-        UserMenu _userMenu;
+        List<UserMenu> _pastUserMenus;
         List<RatedMnItem> _ratedMenuItems = new List<RatedMnItem>();
 
-        public Predict(WeekMenu weekMenu, UserMenu userMenu)
+        public Predict(WeekMenu weekMenu, List<UserMenu> pastUserMenus)
         {
             _weekMenu = weekMenu;
-            _userMenu = userMenu;
+            _pastUserMenus = pastUserMenus;
         }
 
         public UserMenuPredictions Generate()
@@ -49,6 +49,11 @@ namespace Concurs
                     {
                         ratedMenu.CiorbaScore = RateCiorba();
                         ratedMenu.SweetScore = RateSweets();
+
+                        if (menuItem.Description.Contains("fruct"))
+                        {
+                            ratedMenu.FructScore = RateFruct();
+                        }
                     }
                     else
                     {
@@ -66,6 +71,11 @@ namespace Concurs
 
         string GetF1FromRatedMenus(List<RatedMnItem> ratedMenus)
         {
+            var f1RatedMenus = ratedMenus.Where(m => m.IsF1);
+
+            //not ok yet!!!!
+            var bestChoice = f1RatedMenus.Max(m => m.CiorbaScore + m.FructScore + m.IngredientsScore + m.FructScore);
+
             return "";
         }
 
@@ -95,6 +105,13 @@ namespace Concurs
         }
 
         int RateIngredients()
+        {
+
+
+            return 1;
+        }
+
+        int RateFruct()
         {
 
 
