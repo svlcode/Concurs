@@ -64,7 +64,7 @@
             // 
             // btnGetReceipes
             // 
-            this.btnGetReceipes.Location = new System.Drawing.Point(233, 206);
+            this.btnGetReceipes.Location = new System.Drawing.Point(29, 194);
             this.btnGetReceipes.Name = "btnGetReceipes";
             this.btnGetReceipes.Size = new System.Drawing.Size(75, 23);
             this.btnGetReceipes.TabIndex = 2;
