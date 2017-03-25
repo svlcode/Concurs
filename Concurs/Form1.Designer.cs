@@ -30,7 +30,7 @@
         {
             this.btnRetrieveUsers = new System.Windows.Forms.Button();
             this.listBoxUsers = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnGetReceipes = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtAge = new System.Windows.Forms.TextBox();
             this.txtGender = new System.Windows.Forms.TextBox();
@@ -62,14 +62,15 @@
             this.listBoxUsers.TabIndex = 1;
             this.listBoxUsers.SelectedIndexChanged += new System.EventHandler(this.listBoxUsers_SelectedIndexChanged);
             // 
-            // button1
+            // btnGetReceipes
             // 
-            this.button1.Location = new System.Drawing.Point(242, 206);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnGetReceipes.Location = new System.Drawing.Point(233, 206);
+            this.btnGetReceipes.Name = "btnGetReceipes";
+            this.btnGetReceipes.Size = new System.Drawing.Size(75, 23);
+            this.btnGetReceipes.TabIndex = 2;
+            this.btnGetReceipes.Text = "Get receipes";
+            this.btnGetReceipes.UseVisualStyleBackColor = true;
+            this.btnGetReceipes.Click += new System.EventHandler(this.btnGetReceipes_Click);
             // 
             // groupBox1
             // 
@@ -162,7 +163,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(803, 412);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnGetReceipes);
             this.Controls.Add(this.listBoxUsers);
             this.Controls.Add(this.btnRetrieveUsers);
             this.Name = "Form1";
@@ -177,7 +178,7 @@
 
         private System.Windows.Forms.Button btnRetrieveUsers;
         private System.Windows.Forms.ListBox listBoxUsers;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnGetReceipes;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtGender;
         private System.Windows.Forms.TextBox txtUID;

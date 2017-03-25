@@ -55,6 +55,8 @@ namespace Concurs
                     listBoxUsers.Items.Add(user);
                 }
             }
+
+            
         }
 
         private IEnumerable<T> GetIEnumerable<T>(string path)
@@ -84,6 +86,11 @@ namespace Concurs
                 txtGender.Text = user.Gender;
             } 
             
+        }
+
+        private void btnGetReceipes_Click(object sender, EventArgs e)
+        {
+            var recipes = GetIEnumerable<Recipe>(CreateOperation(GET_RECIPES));
         }
     }
 }
