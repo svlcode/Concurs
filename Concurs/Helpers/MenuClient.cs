@@ -65,7 +65,7 @@ namespace Concurs.Helpers
         }
 
 
-        public WeekMenu GeetWeekMenu(DateTime date)
+        public WeekMenu GetWeekMenu(DateTime date)
         {
             var dateString = date.ToString("yyyy-M-d");
 
@@ -76,6 +76,7 @@ namespace Concurs.Helpers
         {
             return GetIEnumerable<Recipe>(CreateOperation(GET_RECIPES));
         }
+
 
         public IEnumerable<UserMenu> GetUserMenus(DateTime startDate, DateTime endDate)
         {
