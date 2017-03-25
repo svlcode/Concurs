@@ -3,36 +3,63 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Concurs.BO;
 
 namespace Concurs
 {
     public class Predict
     {
-        UserMenu _userMenu;
+        UserMenuPredictions _userMenu;
+        DayMenu _dayMenu;
+        List<RatedMnItem> _ratedMenuItems = new List<RatedMnItem>();
 
-        public Predict(UserMenu usermenu)
-        {
-            _userMenu = usermenu;
-        }
+        //public Predict(UserMenu usermenu, DayMenus dayMenus)
+        //{
+        //    _userMenu = usermenu;
+        //    _dayMenus = dayMenus;
+        //}
 
-        public UserMenu Generate()
-        {
-            var result = new UserMenu();
+        //public UserMenu Generate()
+        //{
+        //    var result = new UserMenu();
 
-            SetData();
-            result = RunPrediction();
+        //    RateDayMenu();
+        //    result = RunPrediction();
 
-            return result;
-        }
+        //    return result;
+        //}
 
-        public void SetData()
-        {
+        //public void RateDayMenu()
+        //{
+        //    foreach (var menuItem in _dayMenus.MenuItems)
+        //    {
+        //        RateMenuItem(menuItem);
+        //    }
+        //}
 
-        }
+        //UserMenuPredictions RunPrediction()
+        //{
+        //    return new UserMenuPredictions();
+        //}
 
-        UserMenu RunPrediction()
-        {
-            return new UserMenu();
-        }
+        //void RateMenuItem(MnItem menuItem)
+        //{
+        //    var ratedMenu = new RatedMnItem();
+        //    ratedMenu.MenuItem = menuItem;
+        //    ratedMenu.CiorbaScore = RateCiorba();
+
+
+        //    _ratedMenuItems.Add(ratedMenu);
+        //}
+
+        //int RateCiorba()
+        //{
+        //    foreach (var dayMenu in _userMenu.DayMenus)
+        //    {
+
+        //    }
+
+        //    return 1;
+        //}
     }
 }
