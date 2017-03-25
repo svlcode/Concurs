@@ -14,7 +14,7 @@ using Concurs.BO;
 using Concurs.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
+using Concurs.Helpers;
 
 namespace Concurs
 {
@@ -24,8 +24,6 @@ namespace Concurs
         {
             InitializeComponent();
         }
-
-       
 
         private void btnRetrieveUsers_Click(object sender, EventArgs e)
         {
