@@ -35,26 +35,19 @@ namespace Concurs
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
 
-            //var users = GetProductAsync(client, CreateOperation(GET_USERS)).Result;
-            //if (users != null)
-            //{
-                
-            //}
-            // List data response.
+            var users = GetIEnumerable<User>(client, CreateOperation(GET_USERS));
+          
+        }
+
+        private IEnumerable<T> GetIEnumerable<T>(HttpClient client, string path)
+        {
             HttpResponseMessage response = client.GetAsync(CreateOperation(GET_USERS)).Result;  // Blocking call!
             if (response.IsSuccessStatusCode)
             {
-                var dataObjects = response.Content.ReadAsAsync<IEnumerable<User>>().Result;
-                //// Parse the response body. Blocking!
-                //foreach (var d in dataObjects)
-                //{
-                //    Console.WriteLine("{0}", d.Name);
-                //}
+                return  response.Content.ReadAsAsync<IEnumerable<T>>().Result;
             }
-            else
-            {
-                Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
-            }
+            MessageBox.Show($"{(int)response.StatusCode}, {response.ReasonPhrase}");
+            return null;
         }
 
         private async Task<IEnumerable<User>> GetProductAsync(HttpClient client, string path)
