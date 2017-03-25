@@ -34,4 +34,5 @@ namespace Concurs
         {
             return new UserMenu();
         }
+    }
 }
