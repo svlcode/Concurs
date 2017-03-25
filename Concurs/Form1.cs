@@ -20,7 +20,7 @@ namespace Concurs
         private const string URL = "http://codechefapi.netrom.live/swagger";
         private const string KEY = "xVr5ahyyNNoHl1XaKwCw";
         private const string GET_USERS = "/api/{apiKey}/users";
-
+        private const string GET_RECIPES = "/api/{apiKey}/recipes";
 
         public Form1()
         {
@@ -36,7 +36,7 @@ namespace Concurs
             new MediaTypeWithQualityHeaderValue("application/json"));
 
             var users = GetIEnumerable<User>(client, CreateOperation(GET_USERS));
-          
+            var recipes = GetIEnumerable<Recipe>(client, CreateOperation(GET_RECIPES));
         }
 
         private IEnumerable<T> GetIEnumerable<T>(HttpClient client, string path)
