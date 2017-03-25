@@ -5,8 +5,8 @@ namespace Concurs.BO
 {
     public class WeekMenu
     {
-        private string ID { get; set; }
+        public string ID { get; set; }
         public string Monday { get; set; }
-        List<DayMenu> DayMenus { get; set; }
+        public List<DayMenu> DayMenus { get; set; }
     }
 }
