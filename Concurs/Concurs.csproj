@@ -67,6 +67,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Calculator.cs" />
     <Compile Include="Helpers\MenuClient.cs" />
     <Compile Include="Forms\PastRecords.cs">
       <SubType>Form</SubType>
