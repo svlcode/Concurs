@@ -59,6 +59,8 @@ namespace Concurs
                 }
                 menuPrediction.F1 = GetF1FromRatedMenus(ratedMenus);
                 menuPrediction.F2 = GetF2FromRatedMenus(ratedMenus);
+
+                _userMenuPredictions.MenuPredictionList.Add(menuPrediction);
             }
         }
 
