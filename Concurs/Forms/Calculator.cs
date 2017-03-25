@@ -24,6 +24,22 @@ namespace Concurs.Forms
             return nextWeekMenu;
         }
 
+        public IEnumerable<WeekMenu> GetLastThreeWeekMenus()
+        {
+            var thisWeek = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
+            var lastWeek = thisWeek.AddDays(-1).StartOfWeek(DayOfWeek.Thursday);
+            var twoWeeksAgo = lastWeek.AddDays(-1).StartOfWeek(DayOfWeek.Monday);
+            List<WeekMenu> lastWeekMenus = new List<WeekMenu>(3);
+
+            var thisWeekMenu = _menuClient.GetWeekMenu(thisWeek);
+            var lastWeekMenu = _menuClient.GetWeekMenu(lastWeek);
+            var twoWeeksAgoMenu = _menuClient.GetWeekMenu(twoWeeksAgo);
+
+            lastWeekMenus.AddRange(new [] {thisWeekMenu,lastWeekMenu, twoWeeksAgoMenu});
+
+            return lastWeekMenus;
+        } 
+
         private Dictionary<string, int> GetFirstCoursePreferences()
         {
             Dictionary<string, int> dictionary = new Dictionary<string, int>();
