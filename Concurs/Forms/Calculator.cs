@@ -44,6 +44,17 @@ namespace Concurs.Forms
         {
             Dictionary<string, int> dictionary = new Dictionary<string, int>();
 
+            var lastThreeWeeksMenus = GetLastThreeWeekMenus();
+
+
+            foreach (var weekMenu in lastThreeWeeksMenus)
+            {
+                foreach (var dayMenu in weekMenu.DayMenus)
+                {
+                    
+                }
+            }
+
             return dictionary;
         }
 

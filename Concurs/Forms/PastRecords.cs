@@ -27,7 +27,7 @@ namespace Concurs.Forms
             //var weekMenu = GetObject<WeekMenu>(CreateOperation(GET_WEEK_MENU).Replace("{anyDateofWeek}", date));
 
             var calc = new Calculator(null, new MenuClient());
-            calc.GetNextWeekMenu();
+            var menus = calc.GetLastThreeWeekMenus();
         }
     }
 }
