@@ -60,11 +60,19 @@
     <Compile Include="BO\MnItem.cs" />
     <Compile Include="BO\UserMenu.cs" />
     <Compile Include="BO\WeekMenu.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\MenuClient.cs" />
+    <Compile Include="Forms\PastRecords.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PastRecords.Designer.cs">
+      <DependentUpon>PastRecords.cs</DependentUpon>
     </Compile>
     <Compile Include="Predict.cs" />
     <Compile Include="Program.cs" />
@@ -74,6 +82,9 @@
     <Compile Include="BO\UserMenuPredictions.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PastRecords.resx">
+      <DependentUpon>PastRecords.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
