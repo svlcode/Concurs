@@ -82,11 +82,10 @@ namespace Concurs.Helpers
             var startDate2 = startDate.ToString("yyyy-M-d");
             var endDate2 = endDate.ToString("yyyy-M-d");
 
-            GET_USER_MENUS.Replace("{uid}", userId);
-            GET_USER_MENUS.Replace("{startDate}", startDate2);
-            GET_USER_MENUS.Replace("{endDate}", endDate2);
+            var result = GET_USER_MENUS.Replace("{uid}", userId).Replace("{startDate}", startDate2).Replace("{endDate}", endDate2);
+           
 
-            return GetIEnumerable<UserMenu>(CreateOperation(GET_USER_MENUS));
+            return GetIEnumerable<UserMenu>(CreateOperation(result));
         }
 
     }
