@@ -55,6 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BO\DayMenu.cs" />
+    <Compile Include="BO\MnItem.cs" />
+    <Compile Include="BO\WeekMenu.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
