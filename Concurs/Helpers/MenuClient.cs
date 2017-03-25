@@ -65,7 +65,7 @@ namespace Concurs.Helpers
         }
 
 
-        public WeekMenu GeetWeekMenu(DateTime date)
+        public WeekMenu GetWeekMenu(DateTime date)
         {
             var dateString = date.ToString("yyyy-M-d");
 
