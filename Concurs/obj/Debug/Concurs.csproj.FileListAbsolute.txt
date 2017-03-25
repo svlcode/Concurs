@@ -1,0 +1,13 @@
+E:\Dev\Work\Concurs\Concurs\bin\Debug\Concurs.exe.config
+E:\Dev\Work\Concurs\Concurs\bin\Debug\Concurs.exe
+E:\Dev\Work\Concurs\Concurs\bin\Debug\Concurs.pdb
+E:\Dev\Work\Concurs\Concurs\obj\Debug\Concurs.csprojResolveAssemblyReference.cache
+E:\Dev\Work\Concurs\Concurs\obj\Debug\Concurs.Form1.resources
+E:\Dev\Work\Concurs\Concurs\obj\Debug\Concurs.Properties.Resources.resources
+E:\Dev\Work\Concurs\Concurs\obj\Debug\Concurs.csproj.GenerateResource.Cache
+E:\Dev\Work\Concurs\Concurs\obj\Debug\Concurs.exe
+E:\Dev\Work\Concurs\Concurs\obj\Debug\Concurs.pdb
+E:\Dev\Work\Concurs\Concurs\bin\Debug\Newtonsoft.Json.dll
+E:\Dev\Work\Concurs\Concurs\bin\Debug\System.Net.Http.Formatting.dll
+E:\Dev\Work\Concurs\Concurs\bin\Debug\Newtonsoft.Json.xml
+E:\Dev\Work\Concurs\Concurs\bin\Debug\System.Net.Http.Formatting.xml
