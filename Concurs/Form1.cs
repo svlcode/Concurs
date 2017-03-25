@@ -10,7 +10,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Concurs.BO;
 
 
 namespace Concurs
@@ -20,28 +20,48 @@ namespace Concurs
         private const string URL = "http://codechefapi.netrom.live/swagger";
         private const string KEY = "xVr5ahyyNNoHl1XaKwCw";
         private const string GET_USERS = "/api/{apiKey}/users";
+        private const string GET_RECIPES = "/api/{apiKey}/recipes";
 
+        private readonly HttpClient _client;
 
         public Form1()
         {
             InitializeComponent();
+            _client = CreateHttpClient();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private HttpClient CreateHttpClient()
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(URL);
 
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var users = GetIEnumerable<User>(client, CreateOperation(GET_USERS));
-          
+            return client;
         }
 
-        private IEnumerable<T> GetIEnumerable<T>(HttpClient client, string path)
+        private void btnRetrieveUsers_Click(object sender, EventArgs e)
         {
-            HttpResponseMessage response = client.GetAsync(path).Result;  
+            PopulateUsersListBox();
+        }
+
+        private void PopulateUsersListBox()
+        {
+            var users = GetIEnumerable<User>(CreateOperation(GET_USERS));
+            if (users != null)
+            {
+                foreach (var user in users)
+                {
+                    listBoxUsers.Items.Add(user);
+                }
+            }
+
+            
+        }
+
+        private IEnumerable<T> GetIEnumerable<T>(string path)
+        {
+            HttpResponseMessage response = _client.GetAsync(path).Result;  
             if (response.IsSuccessStatusCode)
             {
                 return  response.Content.ReadAsAsync<IEnumerable<T>>().Result;
@@ -53,6 +73,24 @@ namespace Concurs
         private string CreateOperation(string method)
         {
             return method.Replace("{apiKey}", KEY);
+        }
+
+        private void listBoxUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var user = listBoxUsers.SelectedItem as User;
+            if (user != null)
+            {
+                txtName.Text = user.Name;
+                txtUID.Text = user.UID;
+                txtAge.Text = user.Age.ToString();
+                txtGender.Text = user.Gender;
+            } 
+            
+        }
+
+        private void btnGetReceipes_Click(object sender, EventArgs e)
+        {
+            var recipes = GetIEnumerable<Recipe>(CreateOperation(GET_RECIPES));
         }
     }
 }
