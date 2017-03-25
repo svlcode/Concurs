@@ -64,7 +64,7 @@ namespace Concurs
 
         private void btnGetWeekMenu_Click(object sender, EventArgs e)
         {
-            
+            var weekMenu = new MenuClient().GetWeekMenu(dateTimePicker1.Value);
         }
     }
 }

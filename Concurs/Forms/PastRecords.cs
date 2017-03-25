@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -7,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Concurs.BO;
 using Concurs.Extensions;
 
 namespace Concurs.Forms
@@ -26,29 +24,6 @@ namespace Concurs.Forms
             var twoWeeksAgo = lastWeek.AddDays(-1).StartOfWeek(DayOfWeek.Monday);
 
             //var weekMenu = GetObject<WeekMenu>(CreateOperation(GET_WEEK_MENU).Replace("{anyDateofWeek}", date));
-        }
-    }
-
-    public class Calculator
-    {
-        private readonly User _user;
-
-        public Calculator(User user)
-        {
-            _user = user;
-        }
-
-        public Dictionary<string, int> GetFirstCoursePreferences()
-        {
-            Dictionary<string, int> dictionary = new Dictionary<string, int>();
-
-            return dictionary;
-        }
-
-        public string GetWeekPreferences()
-        {
-
-            return string.Empty;
         }
     }
 }
