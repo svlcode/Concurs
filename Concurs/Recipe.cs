@@ -8,7 +8,7 @@ namespace Concurs
 {
     public class Recipe
     {
-        public string Name;
-        public List<string> Ingredients;
+        public string Name { get; set; }
+        public List<string> Ingredients { get; set; }
     }
 }
