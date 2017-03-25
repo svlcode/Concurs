@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Concurs.BO;
 
@@ -16,6 +17,8 @@ namespace Concurs.Helpers
         private const string GET_RECIPES = "/api/{apiKey}/recipes";
         private const string GET_WEEK_MENU = "/api/{apiKey}/weekmenu/{anyDateofWeek}";
         private const string GET_USER_MENUS = "/api/{apiKey}/usermenu/{uid}/{startDate}/{endDate}";
+        private const string POST = "/api/{apiKey}/usermenu/{uid}";
+
 
         public MenuClient()
         {
@@ -86,6 +89,14 @@ namespace Concurs.Helpers
            
 
             return GetIEnumerable<UserMenu>(CreateOperation(result));
+        }
+
+
+        public  void CreateProductAsync(IEnumerable<MenuPrediction> menuPredictions, string id)
+        {
+            Task<HttpResponseMessage> response = _client.PostAsJsonAsync(CreateOperation(POST).Replace("{uid}", id), menuPredictions);
+
+            var re = response.Result;
         }
 
     }
