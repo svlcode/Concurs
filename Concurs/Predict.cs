@@ -9,57 +9,94 @@ namespace Concurs
 {
     public class Predict
     {
-        UserMenuPredictions _userMenu;
-        DayMenu _dayMenu;
+        UserMenuPredictions _userMenuPredictions;
+
+        WeekMenu _weekMenu;
+        UserMenu _userMenu;
         List<RatedMnItem> _ratedMenuItems = new List<RatedMnItem>();
 
-        //public Predict(UserMenu usermenu, DayMenus dayMenus)
-        //{
-        //    _userMenu = usermenu;
-        //    _dayMenus = dayMenus;
-        //}
+        public Predict(WeekMenu weekMenu, UserMenu userMenu)
+        {
+            _weekMenu = weekMenu;
+            _userMenu = userMenu;
+        }
 
-        //public UserMenu Generate()
-        //{
-        //    var result = new UserMenu();
+        public UserMenuPredictions Generate()
+        {
+            var result = new UserMenuPredictions();
 
-        //    RateDayMenu();
-        //    result = RunPrediction();
+            RateDayMenu();
+            result = RunPrediction();
 
-        //    return result;
-        //}
+            return result;
+        }
 
-        //public void RateDayMenu()
-        //{
-        //    foreach (var menuItem in _dayMenus.MenuItems)
-        //    {
-        //        RateMenuItem(menuItem);
-        //    }
-        //}
+        public void RateDayMenu()
+        {
+            foreach (var dayMenu in _weekMenu.DayMenus)
+            {
+                var menuPrediction = new MenuPrediction();
+                menuPrediction.Day = dayMenu.Date;
 
-        //UserMenuPredictions RunPrediction()
-        //{
-        //    return new UserMenuPredictions();
-        //}
+                var ratedMenus = new List<RatedMnItem>();
+                foreach (var menuItem in dayMenu.MenuItems)
+                {
+                    var ratedMenu = new RatedMnItem();
+                    ratedMenu.MenuItem = menuItem;
+                    ratedMenu.IsF1 = menuItem.Type == "1";
 
-        //void RateMenuItem(MnItem menuItem)
-        //{
-        //    var ratedMenu = new RatedMnItem();
-        //    ratedMenu.MenuItem = menuItem;
-        //    ratedMenu.CiorbaScore = RateCiorba();
+                    if (ratedMenu.IsF1)
+                    {
+                        ratedMenu.CiorbaScore = RateCiorba();
+                        ratedMenu.SweetScore = RateSweets();
+                    }
+                    else
+                    {
+                        ratedMenu.IngredientsScore = RateIngredients();
+                    }
+
+                    ratedMenus.Add(ratedMenu);
+                }
+                menuPrediction.F1 = GetF1FromRatedMenus(ratedMenus);
+                menuPrediction.F2 = GetF2FromRatedMenus(ratedMenus);
+            }
+        }
+
+        string GetF1FromRatedMenus(List<RatedMnItem> ratedMenus)
+        {
+            return "";
+        }
+
+        string GetF2FromRatedMenus(List<RatedMnItem> ratedMenus)
+        {
+            return "";
+        }
+
+        UserMenuPredictions RunPrediction()
+        {
+            return new UserMenuPredictions();
+        }
+        
+
+        int RateCiorba()
+        {
+            
+
+            return 1;
+        }
+
+        int RateSweets()
+        {
 
 
-        //    _ratedMenuItems.Add(ratedMenu);
-        //}
+            return 1;
+        }
 
-        //int RateCiorba()
-        //{
-        //    foreach (var dayMenu in _userMenu.DayMenus)
-        //    {
+        int RateIngredients()
+        {
 
-        //    }
 
-        //    return 1;
-        //}
+            return 1;
+        }
     }
 }

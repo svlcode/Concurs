@@ -58,6 +58,7 @@
     <Compile Include="BO\DayMenu.cs" />
     <Compile Include="BO\MenuPrediction.cs" />
     <Compile Include="BO\MnItem.cs" />
+    <Compile Include="BO\UserMenu.cs" />
     <Compile Include="BO\WeekMenu.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

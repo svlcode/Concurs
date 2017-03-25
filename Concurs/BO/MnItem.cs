@@ -11,6 +11,7 @@ namespace Concurs.BO
     {
         public MnItem MenuItem { get; set; }
 
+        public bool IsF1 { get; set; }
         public int SweetScore { get; set; }
         public int CiorbaScore { get; set; }
         public int FructScore { get; set; }
