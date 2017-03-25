@@ -15,6 +15,7 @@ namespace Concurs.Helpers
         private const string GET_USERS = "/api/{apiKey}/users";
         private const string GET_RECIPES = "/api/{apiKey}/recipes";
         private const string GET_WEEK_MENU = "/api/{apiKey}/weekmenu/{anyDateofWeek}";
+        private const string GET_USER_MENUS = "";
 
         public MenuClient()
         {
@@ -74,6 +75,11 @@ namespace Concurs.Helpers
         public IEnumerable<Recipe> GetRecipes()
         {
             return GetIEnumerable<Recipe>(CreateOperation(GET_RECIPES));
+        }
+
+        public IEnumerable<UserMenu> GetUserMenus(DateTime startDate, DateTime endDate)
+        {
+            return null;
         }
 
     }
