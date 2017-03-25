@@ -20,6 +20,7 @@ namespace Concurs
         private const string URL = "http://codechefapi.netrom.live/swagger";
         private const string KEY = "xVr5ahyyNNoHl1XaKwCw";
         private const string GET_USERS = "/api/{apiKey}/users";
+        private const string GET_RECIPES = "/api/{apiKey}/recipes";
 
         private readonly HttpClient _client;
 
