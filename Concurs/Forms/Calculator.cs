@@ -19,7 +19,7 @@ namespace Concurs.Forms
 
         public WeekMenu GetNextWeekMenu()
         {
-            var mondayNextWeek = DateTime.Now.StartOfWeek(DayOfWeek.Sunday).AddDays(1);
+            var mondayNextWeek = DateTime.Now.StartOfWeek(DayOfWeek.Monday).AddDays(7);
             var nextWeekMenu =  _menuClient.GetWeekMenu(mondayNextWeek);
             return nextWeekMenu;
         }
