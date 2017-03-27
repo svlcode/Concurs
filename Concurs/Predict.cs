@@ -4,34 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Concurs.BO;
+using Concurs.Helpers;
 
 namespace Concurs
 {
     public class Predict
     {
-        UserMenuPredictions _userMenuPredictions;
+        UserMenuPredictions _userMenuPredictions = new UserMenuPredictions();
 
         WeekMenu _weekMenu;
-        List<UserMenu> _pastUserMenus;
+        List<UserMenu> _pastUserMenus = new List<UserMenu>();
+        List<WeekMenu> _pastWeekMenus = new List<WeekMenu>();
         List<RatedMnItem> _ratedMenuItems = new List<RatedMnItem>();
+        IEnumerable<Recipe> _recipes;
 
-        public Predict(WeekMenu weekMenu, List<UserMenu> pastUserMenus)
+        public Predict(WeekMenu weekMenu, List<UserMenu> pastUserMenus, List<WeekMenu> pastWeekMenus)
         {
             _weekMenu = weekMenu;
             _pastUserMenus = pastUserMenus;
+            _pastWeekMenus = pastWeekMenus;
+            _recipes = new MenuClient().GetRecipes();
         }
 
         public UserMenuPredictions Generate()
         {
-            var result = new UserMenuPredictions();
+            RateDayMenus();
 
-            RateDayMenu();
-            result = RunPrediction();
-
-            return result;
+            return _userMenuPredictions ?? new UserMenuPredictions();
         }
 
-        public void RateDayMenu()
+        public void RateDayMenus()
         {
             foreach (var dayMenu in _weekMenu.DayMenus)
             {
@@ -47,7 +49,7 @@ namespace Concurs
 
                     if (ratedMenu.IsF1)
                     {
-                        ratedMenu.CiorbaScore = RateCiorba();
+                        ratedMenu.CiorbaScore = RateCiorba(menuItem);
                         ratedMenu.SweetScore = RateSweets();
 
                         if (menuItem.Description.Contains("fruct"))
@@ -57,7 +59,7 @@ namespace Concurs
                     }
                     else
                     {
-                        ratedMenu.IngredientsScore = RateIngredients();
+                        ratedMenu.IngredientsScore = RateIngredients(menuItem);
                     }
 
                     ratedMenus.Add(ratedMenu);
@@ -71,51 +73,156 @@ namespace Concurs
 
         string GetF1FromRatedMenus(List<RatedMnItem> ratedMenus)
         {
-            var f1RatedMenus = ratedMenus.Where(m => m.IsF1);
+            var f1RatedMenus = ratedMenus.Where(m => m.IsF1).ToList();
 
-            //not ok yet!!!!
-            var bestChoice = f1RatedMenus.Max(m => m.CiorbaScore + m.FructScore + m.IngredientsScore + m.FructScore);
+            if (f1RatedMenus.FirstOrDefault(m => m.FructScore >= 2) != null)
+            {
+                return f1RatedMenus.FirstOrDefault(m => m.FructScore >= 2).MenuItem.Code;
+            }
 
-            return "";
+            if (f1RatedMenus.FirstOrDefault(m => m.SweetScore >= 5) != null)
+            {
+                return f1RatedMenus.FirstOrDefault(m => m.SweetScore >= 5).MenuItem.Code;
+            }
+
+            return f1RatedMenus.OrderByDescending(m => m.CiorbaScore).FirstOrDefault().MenuItem.Code;
+
         }
 
         string GetF2FromRatedMenus(List<RatedMnItem> ratedMenus)
         {
-            return "";
+            var f2RatedMenus = ratedMenus.Where(m => !m.IsF1);
+
+            var bestChoice = f2RatedMenus.OrderByDescending(m => m.IngredientsScore).FirstOrDefault();
+
+            return bestChoice.MenuItem.Code;
         }
 
-        UserMenuPredictions RunPrediction()
+        int RateCiorba(MnItem menuItem)
         {
-            return new UserMenuPredictions();
-        }
-        
+            var score = 0;
+            var recipe = _recipes.FirstOrDefault(r => r.Name.ToLower() == menuItem.Description.Substring(5).ToLower());
 
-        int RateCiorba()
-        {
-            
 
-            return 1;
+            if (recipe != null)
+            {
+                var ciorbaSelectedMenus = _pastUserMenus.Where(m => (m.F1 ?? string.Empty).ToLower().Contains("ciorba") || (m.F1??string.Empty).ToLower().Contains("supa") || (m.F1 ?? string.Empty).ToLower().Contains("bors"));
+                if (ciorbaSelectedMenus != null)
+                {
+                    var pastSelectedIngredients = new List<string>();
+                    foreach (var selectedMenu in ciorbaSelectedMenus)
+                    {
+                        pastSelectedIngredients.AddRange(_recipes.FirstOrDefault(r => selectedMenu.F1 == r.Name).Ingredients);
+                    }
+
+
+                    foreach (var ingredient in recipe.Ingredients)
+                    {
+                        if (pastSelectedIngredients.Contains(ingredient))
+                        {
+                            score++;
+                        }
+                    }
+                }
+            }
+
+            return score;
         }
 
         int RateSweets()
         {
+            int counterSweets = 0;
+
+            foreach (var pastWeekMenu in _pastWeekMenus)
+            {
+                foreach (var dayMenu in pastWeekMenu.DayMenus)
+                {
+                    foreach (var mi in dayMenu.MenuItems)
+                    {
+                        if (!string.IsNullOrEmpty(mi.Description))
+                        {
+                            if (!mi.Description.ToLower().Contains("fruct") &&
+                                !mi.Description.ToLower().Contains("ciorba") &&
+                                !mi.Description.ToLower().Contains("bors") &&
+                                !mi.Description.ToLower().Contains("supa"))
+                            {
+                                counterSweets++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            int counterDaysWhenSweetsWereSelected = 0;
+            foreach (var pastUserMenu in _pastUserMenus)
+            {
+                if (!string.IsNullOrEmpty(pastUserMenu.F1))
+                {
+                    if (!pastUserMenu.F1.ToLower().Contains("fruct") && !pastUserMenu.F1.ToLower().Contains("ciorba") &&
+                        !pastUserMenu.F1.ToLower().Contains("supa"))
+                    {
+                        counterDaysWhenSweetsWereSelected++;
+                    }
+                }
+            }
 
 
-            return 1;
+            return counterSweets - (counterSweets - counterDaysWhenSweetsWereSelected);
         }
 
-        int RateIngredients()
+        int RateIngredients(MnItem menuItem)
         {
+            var score = 0;
+            var recipe = _recipes.FirstOrDefault(r => r.Name == menuItem.Description);
+            if (recipe != null)
+            {
+                var pastSelectedIngredients = new List<string>();
+                foreach (var selectedMenu in _pastUserMenus)
+                {
+                    pastSelectedIngredients.AddRange(_recipes.FirstOrDefault(r => selectedMenu.F2 == r.Name).Ingredients);
 
+                    foreach (var ingredient in recipe.Ingredients)
+                    {
+                        if (pastSelectedIngredients.Contains(ingredient))
+                        {
+                            score++;
+                        }
+                    }
+                }
+            }
 
-            return 1;
+            return score;
         }
 
         int RateFruct()
         {
+            int counterSweets = 0;
+
+            foreach (var pastWeekMenu in _pastWeekMenus)
+            {
+                foreach (var dayMenu in pastWeekMenu.DayMenus)
+                {
+                    foreach (var mi in dayMenu.MenuItems)
+                    {
+                        if (mi.Description.ToLower().Contains("fruct") )
+                        {
+                            counterSweets++;
+                        }
+                    }
+                }
+            }
+
+            int counterDaysWhenSweetsWereSelected = 0;
+            foreach (var pastUserMenu in _pastUserMenus)
+            {
+                if ((pastUserMenu.F1??string.Empty).ToLower().Contains("fruct"))
+                {
+                    counterDaysWhenSweetsWereSelected++;
+                }
+            }
 
 
-            return 1;
+            return counterSweets - (counterSweets - counterDaysWhenSweetsWereSelected);
         }
     }
 }

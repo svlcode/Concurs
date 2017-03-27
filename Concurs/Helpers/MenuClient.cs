@@ -42,7 +42,7 @@ namespace Concurs.Helpers
             {
                 return response.Content.ReadAsAsync<IEnumerable<T>>().Result;
             }
-            MessageBox.Show(string.Format("{0}, {1}", (int)response.StatusCode, response.ReasonPhrase));
+            //MessageBox.Show(string.Format("{0}, {1}", (int)response.StatusCode, response.ReasonPhrase));
             return null;
         }
 
@@ -77,7 +77,9 @@ namespace Concurs.Helpers
 
         public IEnumerable<Recipe> GetRecipes()
         {
-            return GetIEnumerable<Recipe>(CreateOperation(GET_RECIPES));
+            var result = GetIEnumerable<Recipe>(CreateOperation(GET_RECIPES));
+
+            return result;
         }
 
         public IEnumerable<UserMenu> GetUserMenus(string userId, DateTime startDate, DateTime endDate)

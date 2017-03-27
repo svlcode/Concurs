@@ -78,23 +78,9 @@ namespace Concurs.Forms
         public string GetPrediction(string userId)
         {
 
-            var startDate = new DateTime(2017,2,01);
-            var endDate = new DateTime(2017,3,10);
+            
 
-            var userMenues = new MenuClient().GetUserMenus(userId, startDate, endDate);
-
-            var copyOfUserMenu = userMenues.ToList();
-
-            foreach (var userMenu in copyOfUserMenu)
-            {
-                if (userMenu.Date.TimeOfDay.Hours <= 17 && userMenu.Date.DayOfWeek == DayOfWeek.Wednesday)
-                {
-                    
-                }
-            }
-           
-
-            var nextWeekMenu = GetNextWeekMenu();
+          
 
             return string.Empty;
         }
